@@ -1,49 +1,185 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Crédito</title>
-    <link rel="stylesheet" href="simulador.css">
-    <script src="simulador.js"></script>
-    <script src="utilitarios.js"></script>
-    <script src="funciones.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco MeoT - Simulador de Crédito</title>
+  <link rel="stylesheet" href="simulador.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="container">
-        <h1>Simulador de Crédito</h1>
-
-        <h2>Datos financieros</h2>
-        <label for="txtIngresos">Ingresos:</label>
-        <input type="text" id="txtIngresos">
-
-        <label for="txtEgresos">Egresos:</label>
-        <input type="text" id="txtEgresos">
-
-        <p>Disponible: <span id="spnDisponible"></span></p>
-        <p>Capacidad de pago mensual: <span id="spnCapacidadPago"></span></p>
-
-        <h2>Solicitud de crédito</h2>
-        <label for="txtMonto">Monto:</label>
-        <input type="text" id="txtMonto">
-
-        <label for="txtPlazo">Plazo en años:</label>
-        <input type="text" id="txtPlazo">
-
-        <label for="txtTasaInteres">Tasa de interés:</label>
-        <input type="text" id="txtTasaInteres">
-
-        <p>Interés a pagar: <span id="spnInteresPagar"></span></p>
-        <p>Total préstamo: <span id="spnTotalPrestamo"></span></p>
-        <p>Cuota mensual: <span id="spnCuotaMensual"></span></p>
-        <p>Estado de crédito: <span id="spnEstadoCredito">ANALIZANDO...</span></p>
-
-        <div class="buttons">
-            <button onclick="calcular()" id="btnCalcularCredito">Calcular Crédito</button>
-            <button id="btnReiniciar">Reiniciar</button>
-        </div>
+  <!-- Barra superior del banco -->
+  <div class="barra-superior">
+    <div class="contenedor-barra">
+      <span class="telefono-banco">📞 Línea de atención: 1800-MEOT-BANCO</span>
+      <span class="horario-banco">🕐 Lun-Vie: 8:00 - 18:00</span>
     </div>
+  </div>
 
+  <!-- Header principal -->
+  <header class="header-banco">
+    <div class="contenedor-header">
+      <div class="logo-banco">
+        <div class="icono-banco">🏦</div>
+        <div class="nombre-banco">
+          <h1>BANCO <span class="resaltado">MeoT</span></h1>
+          <p class="slogan">Tu futuro financiero, nuestra prioridad</p>
+        </div>
+      </div>
+      <nav class="nav-banco">
+        <a href="#" class="nav-link">Inicio</a>
+        <a href="#" class="nav-link activo">Simulador</a>
+        <a href="#" class="nav-link">Productos</a>
+        <a href="#" class="nav-link">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Banner principal -->
+  <section class="banner-principal">
+    <div class="contenedor-banner">
+      <h2>Simulador de Crédito Personal</h2>
+      <p>Calcule su cuota mensual y conozca su capacidad de pago en minutos</p>
+    </div>
+  </section>
+
+  <!-- Contenido principal -->
+  <main class="contenedor-principal">
+    
+    <!-- Sección 1: Datos Financieros -->
+    <section class="card-bancario">
+      <div class="card-header">
+        <div class="card-icono">💼</div>
+        <h3>Datos Financieros del Cliente</h3>
+      </div>
+      
+      <div class="card-body">
+        <div class="grid-dos">
+          <div class="input-group">
+            <label for="txtIngresos">
+              <span class="icono-label">💰</span> Ingresos mensuales ($)
+            </label>
+            <input type="number" id="txtIngresos" placeholder="Ej: 1500.00" min="0" step="0.01">
+          </div>
+
+          <div class="input-group">
+            <label for="txtEgresos">
+              <span class="icono-label"></span> Egresos mensuales ($)
+            </label>
+            <input type="number" id="txtEgresos" placeholder="Ej: 500.00" min="0" step="0.01">
+          </div>
+        </div>
+
+        <div class="resultados-parciales">
+          <div class="resultado-item">
+            <small>Disponible mensual</small>
+            <strong id="spnDisponible">$0.00</strong>
+          </div>
+          <div class="resultado-item destacado">
+            <small>Capacidad de pago mensual</small>
+            <strong id="spnCapacidadPago">$0.00</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 2: Solicitud de Crédito -->
+    <section class="card-bancario">
+      <div class="card-header">
+        <div class="card-icono">📋</div>
+        <h3>Solicitud de Crédito</h3>
+      </div>
+      
+      <div class="card-body">
+        <div class="grid-tres">
+          <div class="input-group">
+            <label for="txtMonto">
+              <span class="icono-label">💵</span> Monto del crédito ($)
+            </label>
+            <input type="number" id="txtMonto" placeholder="Ej: 5000" min="0" step="0.01">
+          </div>
+
+          <div class="input-group">
+            <label for="txtPlazo">
+              <span class="icono-label">📅</span> Plazo (años)
+            </label>
+            <input type="number" id="txtPlazo" placeholder="Ej: 2" min="1" max="30">
+          </div>
+
+          <div class="input-group">
+            <label for="txtTasaInteres">
+              <span class="icono-label"></span> Tasa de interés (%)
+            </label>
+            <input type="number" id="txtTasaInteres" placeholder="Ej: 12" min="0" step="0.1">
+          </div>
+        </div>
+
+        <!-- Resultados del cálculo -->
+        <div class="resultados-credito">
+          <h4 class="titulo-resultados"> Resultados de la Simulación</h4>
+          
+          <div class="grid-resultados">
+            <div class="resultado-box">
+              <small>Interés a pagar</small>
+              <strong id="spnInteresPagar">$0.00</strong>
+            </div>
+
+            <div class="resultado-box">
+              <small>Total del préstamo</small>
+              <strong id="spnTotalPrestamo">$0.00</strong>
+            </div>
+
+            <div class="resultado-box principal">
+              <small>Cuota mensual</small>
+              <strong id="spnCuotaMensual">$0.00</strong>
+            </div>
+          </div>
+
+          <!-- Estado del crédito -->
+          <div class="estado-credito">
+            <div class="estado-label">Estado de la solicitud:</div>
+            <div class="estado-valor" id="spnEstadoCredito">ANALIZANDO...</div>
+          </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="botones-accion">
+          <button onclick="calcular()" class="btn-primario">
+            <span class="icono-btn">🧮</span> Calcular Crédito
+          </button>
+          <button onclick="reiniciar()" class="btn-secundario">
+            <span class="icono-btn">🔄</span> Reiniciar
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer institucional -->
+  <footer class="footer-banco">
+    <div class="contenedor-footer">
+      <div class="footer-info">
+        <h4>BANCO MeoT</h4>
+        <p>Institución financiera regulada por la Superintendencia de Bancos</p>
+        <p class="copyright">© 2026 Manuel Otacoma (MeoT) - Todos los derechos reservados</p>
+      </div>
+      <div class="footer-seguridad">
+        <div class="item-seguridad">
+          <span class="icono-seguridad">🔒</span>
+          <span>Conexión segura</span>
+        </div>
+        <div class="item-seguridad">
+          <span class="icono-seguridad">✅</span>
+          <span>Datos protegidos</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="simulador.js"></script>
+  <script src="funciones.js"></script>
+  <script src="utilitarios.js"></script>
 </body>
 </html>
