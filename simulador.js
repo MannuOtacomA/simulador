@@ -22,6 +22,7 @@ function calcularCuotaMensual(total,plazoAnios){
 
 
 function calcular(){
+    console.log("aquiiiiii")
     let txtIngresos = recuperarFloat("txtIngresos");
     let txtEgresos = recuperarFloat("txtEgresos");
 
@@ -104,7 +105,9 @@ function mostrarError(mensaje, idInput = null) {
   }
 }
 
-// Función para validar un campo numérico
+
+
+// ======Función para validar un campo numérico
 function validarCampoNumerico(idInput, nombreCampo, permitirDecimales = false) {
   const input = document.getElementById(idInput);
   if (!input) return null;
@@ -128,10 +131,11 @@ function validarCampoNumerico(idInput, nombreCampo, permitirDecimales = false) {
   const numero = permitirDecimales ? parseFloat(valor) : parseInt(valor);
   const digitos = valor.replace(".", "").length;
   
+  /*
   if (digitos < 5) {
     mostrarError(`El campo "${nombreCampo}" debe tener al menos 5 dígitos.`, idInput);
     return null;
-  }
+  }*/
   
   // Validar que sea mayor a 0
   if (numero <= 0) {

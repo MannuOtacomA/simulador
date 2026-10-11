@@ -1,5 +1,5 @@
 function calcularCapacidadPago(montoDisponible){
-    return montoDisponible / 2;
+    return (montoDisponible *30 )/100 ;
 }
 
 
