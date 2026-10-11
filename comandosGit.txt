@@ -1,0 +1,28 @@
+para subir una carpeta del pc al git
+abrimos desde la carpeta con, open git bash here
+
+git init
+git add . (sube todos los archivos)
+git commit -m "mi primera subida"
+
+luego en la cuenta git creamos un repositorio 
+copiamos la url del repositorio creado
+En consola de git, cambiamos la rama master a main
+
+git branch -m main
+
+Ahora si envoiamos al repositorio remoto creado
+git remote add origin ....poner url....
+
+git push - u origin main (para subir los archivos al remoto desde rama main)
+
+vamos a git y actualizamos pagina
+
+
+
+////
+Comandos sugeridos:
+git add .
+git commit -m "Finaliza taller anterior de simulador de crédito"
+git push origin master
+git checkout -b dev
