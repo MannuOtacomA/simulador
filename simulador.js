@@ -68,14 +68,13 @@ function calcular(){
 
 // ===== VALIDACIONES CON LA IA=====
 
-// Función para limpiar errores anteriores
+// Función para limpiar errores de todos los inputs
 function limpiarErrores() {
-  const contenedor = document.getElementById("contenedorErrores");
-  if (contenedor) {
-    contenedor.innerHTML = "";
-  }
+  // 1. Limpiar textos de los spans de error
+  const mensajes = document.querySelectorAll(".mensaje-error-input");
+  mensajes.forEach(msg => msg.textContent = "");
   
-  // Quitar clase de error de todos los inputs
+  // 2. Quitar clases de error/válido de todos los inputs
   const inputs = document.querySelectorAll("input");
   inputs.forEach(input => {
     input.classList.remove("input-error");
@@ -83,67 +82,45 @@ function limpiarErrores() {
   });
 }
 
-// Función para mostrar un mensaje de error
-function mostrarError(mensaje, idInput = null) {
-  const contenedor = document.getElementById("contenedorErrores");
-  if (!contenedor) return;
-  
-  const divError = document.createElement("div");
-  divError.className = "mensaje-error";
-  divError.innerHTML = `
-    <span class="icono-error">️</span>
-    <span>${mensaje}</span>
-  `;
-  contenedor.appendChild(divError);
-  
-  // Marcar el input con error si se proporcionó el ID
-  if (idInput) {
-    const input = document.getElementById(idInput);
-    if (input) {
-      input.classList.add("input-error");
+// Función para mostrar error en el input específico
+function mostrarError(mensaje, idInput) {
+  const input = document.getElementById(idInput);
+  if (input) {
+    input.classList.add("input-error");
+    // Busca el span hermano que está justo debajo del input
+    const spanError = input.parentElement.querySelector(".mensaje-error-input");
+    if (spanError) {
+      spanError.textContent = "⚠️ " + mensaje;
     }
   }
 }
 
-
-
-// ======Función para validar un campo numérico
+// Función para validar un campo numérico
 function validarCampoNumerico(idInput, nombreCampo, permitirDecimales = false) {
   const input = document.getElementById(idInput);
   if (!input) return null;
   
   const valor = input.value.trim();
   
-  // Validar que no esté vacío
   if (valor === "") {
     mostrarError(`El campo "${nombreCampo}" no puede estar vacío.`, idInput);
     return null;
   }
   
-  // Validar que solo contenga números
   const regexNumeros = permitirDecimales ? /^\d+(\.\d+)?$/ : /^\d+$/;
   if (!regexNumeros.test(valor)) {
     mostrarError(`El campo "${nombreCampo}" solo acepta números.`, idInput);
     return null;
   }
   
-  // Validar cantidad de dígitos (5 dígitos para montos grandes)
   const numero = permitirDecimales ? parseFloat(valor) : parseInt(valor);
-  const digitos = valor.replace(".", "").length;
   
-  /*
-  if (digitos < 5) {
-    mostrarError(`El campo "${nombreCampo}" debe tener al menos 5 dígitos.`, idInput);
-    return null;
-  }*/
-  
-  // Validar que sea mayor a 0
   if (numero <= 0) {
     mostrarError(`El campo "${nombreCampo}" debe ser mayor a 0.`, idInput);
     return null;
   }
   
-  // Marcar como válido
+  // Si todo está bien, marcar como válido
   input.classList.add("input-valido");
   return numero;
 }
@@ -151,28 +128,13 @@ function validarCampoNumerico(idInput, nombreCampo, permitirDecimales = false) {
 // Función principal de validación
 function validarFormulario() {
   limpiarErrores();
-  
   let esValido = true;
   
-  // Validar Ingresos (permite decimales, mínimo 5 dígitos)
-  const ingresos = validarCampoNumerico("txtIngresos", "Ingresos", true);
-  if (ingresos === null) esValido = false;
-  
-  // Validar Egresos (permite decimales, mínimo 5 dígitos)
-  const egresos = validarCampoNumerico("txtEgresos", "Egresos", true);
-  if (egresos === null) esValido = false;
-  
-  // Validar Monto (permite decimales, mínimo 5 dígitos)
-  const monto = validarCampoNumerico("txtMonto", "Monto del crédito", true);
-  if (monto === null) esValido = false;
-  
-  // Validar Plazo (solo enteros, mínimo 5 dígitos)
-  const plazo = validarCampoNumerico("txtPlazo", "Plazo", false);
-  if (plazo === null) esValido = false;
-  
-  // Validar Tasa de Interés (permite decimales, mínimo 5 dígitos)
-  const tasa = validarCampoNumerico("txtTasaInteres", "Tasa de interés", true);
-  if (tasa === null) esValido = false;
+  if (validarCampoNumerico("txtIngresos", "Ingresos", true) === null) esValido = false;
+  if (validarCampoNumerico("txtEgresos", "Egresos", true) === null) esValido = false;
+  if (validarCampoNumerico("txtMonto", "Monto del crédito", true) === null) esValido = false;
+  if (validarCampoNumerico("txtPlazo", "Plazo", false) === null) esValido = false;
+  if (validarCampoNumerico("txtTasaInteres", "Tasa de interés", true) === null) esValido = false;
   
   return esValido;
 }
@@ -180,11 +142,47 @@ function validarFormulario() {
 // Modificar la función calcular para incluir validaciones
 const calcularOriginal = calcular;
 calcular = function() {
-  // Primero validar el formulario
   if (!validarFormulario()) {
-    return; // Si hay errores, no continuar
+    return; // Si hay errores, se detiene aquí y no calcula
   }
-  
-  // Si todo está válido, ejecutar el cálculo original
-  calcularOriginal();
+  calcularOriginal(); // Si todo está válido, ejecuta el cálculo original
 };
+
+
+// ===== FUNCIÓN REINICIAR =====
+function reiniciar() {
+  // 1. Limpiar todos los inputs
+  document.getElementById("txtIngresos").value = "";
+  document.getElementById("txtEgresos").value = "";
+  document.getElementById("txtMonto").value = "";
+  document.getElementById("txtPlazo").value = "";
+  document.getElementById("txtTasaInteres").value = "";
+  
+  // 2. Resetear los resultados a valores iniciales
+  mostrarTexto("spnDisponible", "0.00");
+  mostrarTexto("spnCapacidadPago", "0.00");
+  mostrarTexto("spnInteresPagar", "0.00");
+  mostrarTexto("spnTotalPrestamo", "0.00");
+  mostrarTexto("spnCuotaMensual", "0.00");
+  
+  // 3. Resetear el estado del crédito
+  let spnEstado = document.getElementById("spnEstadoCredito");
+  spnEstado.textContent = "ANALIZANDO...";
+  spnEstado.style.color = ""; // Quitar color
+  spnEstado.style.fontWeight = ""; // Quitar negrita
+  
+  // 4. Limpiar errores de validación
+  limpiarErrores();
+  
+  // 5. Quitar clases de error/valido de todos los inputs
+  const inputs = document.querySelectorAll("input");
+  inputs.forEach(input => {
+    input.classList.remove("input-error");
+    input.classList.remove("input-valido");
+  });
+  
+  // 6. Devolver el foco al primer input
+  document.getElementById("txtIngresos").focus();
+  
+  console.log("✅ Formulario reiniciado correctamente");
+}

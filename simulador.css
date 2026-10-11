@@ -649,3 +649,33 @@ h1, h2, h3, h4 {
 .input-valido {
   border-color: #10b981 !important;
 }
+
+
+
+/* ===== MENSAJES DE ERROR INDIVIDUALES ===== */
+.mensaje-error-input {
+  display: block;
+  color: var(--color-peligro); /* Rojo (#ef4444) */
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-top: 5px;
+  min-height: 18px; /* Mantiene el espacio para que no salte el diseño */
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Input con error (borde rojo) */
+.input-error {
+  border-color: var(--color-peligro) !important;
+  background-color: #fef2f2 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+/* Input válido (borde verde) */
+.input-valido {
+  border-color: var(--color-exito) !important;
+}
