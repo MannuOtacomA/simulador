@@ -449,6 +449,36 @@ h1, h2, h3, h4 {
   font-size: 1.2em;
 }
 
+/* ===== BOTÓN ASIGNAR CRÉDITO ===== */
+#btnAsignarCredito {
+  margin-top: 20px;
+  padding: 15px 30px;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#btnAsignarCredito:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+}
+
+#btnAsignarCredito:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 /* ===== FOOTER ===== */
 .footer-banco {
   background: var(--color-primario);
@@ -504,49 +534,72 @@ h1, h2, h3, h4 {
   font-size: 1.2em;
 }
 
+/* ===== VALIDACIONES ===== */
+.contenedor-errores {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.mensaje-error-input {
+  display: block;
+  color: var(--color-peligro);
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-top: 5px;
+  min-height: 18px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.input-error {
+  border-color: var(--color-peligro) !important;
+  background-color: #fef2f2 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.input-valido {
+  border-color: var(--color-exito) !important;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .contenedor-header {
     flex-direction: column;
     text-align: center;
   }
-  
   .logo-banco {
     flex-direction: column;
   }
-  
   .nav-banco {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
   .banner-principal h2 {
     font-size: 1.6em;
   }
-  
   .grid-dos, .grid-tres, .grid-resultados {
     grid-template-columns: 1fr;
   }
-  
   .resultados-parciales {
     grid-template-columns: 1fr;
   }
-  
   .botones-accion {
     flex-direction: column;
   }
-  
   .estado-credito {
     flex-direction: column;
     gap: 10px;
     text-align: center;
   }
-  
   .contenedor-footer {
     flex-direction: column;
     text-align: center;
   }
-  
   .footer-seguridad {
     flex-direction: column;
     gap: 10px;
@@ -557,21 +610,17 @@ h1, h2, h3, h4 {
   .barra-superior {
     display: none;
   }
-  
   .icono-banco {
     width: 55px;
     height: 55px;
     font-size: 2.2em;
   }
-  
   .nombre-banco h1 {
     font-size: 1.4em;
   }
-  
   .card-body {
     padding: 20px 15px;
   }
-  
   .card-header h3 {
     font-size: 1.1em;
   }
@@ -596,86 +645,4 @@ h1, h2, h3, h4 {
 .card-bancario:nth-child(2) {
   animation-delay: 0.2s;
   animation-fill-mode: both;
-}
-
-
-
-/* ===== VALIDACIONES Y MENSAJES DE ERROR CON LA IA===== */
-.contenedor-errores {
-  max-width: 1000px;
-  margin: 20px auto;
-  padding: 0 20px;
-}
-
-.mensaje-error {
-  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-  border-left: 4px solid #ef4444;
-  color: #dc2626;
-  padding: 12px 18px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  font-size: 0.95em;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
-  animation: slideInError 0.3s ease-out;
-}
-
-.mensaje-error .icono-error {
-  font-size: 1.3em;
-}
-
-@keyframes slideInError {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Estilo para inputs con error */
-.input-error {
-  border-color: #ef4444 !important;
-  background-color: #fef2f2 !important;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
-}
-
-/* Estilo para inputs válidos */
-.input-valido {
-  border-color: #10b981 !important;
-}
-
-
-
-/* ===== MENSAJES DE ERROR INDIVIDUALES ===== */
-.mensaje-error-input {
-  display: block;
-  color: var(--color-peligro); /* Rojo (#ef4444) */
-  font-size: 0.85em;
-  font-weight: 600;
-  margin-top: 5px;
-  min-height: 18px; /* Mantiene el espacio para que no salte el diseño */
-  animation: slideDown 0.3s ease-out;
-}
-
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Input con error (borde rojo) */
-.input-error {
-  border-color: var(--color-peligro) !important;
-  background-color: #fef2f2 !important;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
-}
-
-/* Input válido (borde verde) */
-.input-valido {
-  border-color: var(--color-exito) !important;
 }

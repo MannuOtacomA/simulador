@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Banco MeoT - Simulador de Crédito</title>
   <link rel="stylesheet" href="simulador.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Barra superior del banco -->
+  <!-- Barra superior -->
   <div class="barra-superior">
     <div class="contenedor-barra">
-      <span class="telefono-banco">📞 Línea de atención: 1800-MEOT-BANCO</span>
-      <span class="horario-banco">🕐 Lun-Vie: 8:00 - 18:00</span>
+      <span>📞 Línea de atención: 1800-MEOT-BANCO</span>
+      <span> Lun-Vie: 8:00 - 18:00</span>
+      <span>🏦</span>
     </div>
   </div>
 
-  <!-- Header principal -->
+  <!-- Header del banco -->
   <header class="header-banco">
     <div class="contenedor-header">
       <div class="logo-banco">
@@ -28,8 +28,8 @@
         </div>
       </div>
       <nav class="nav-banco">
-        <a href="#" class="nav-link">Inicio</a>
-        <a href="#" class="nav-link activo">Simulador</a>
+        <a href="#" class="nav-link activo">Inicio</a>
+        <a href="#" class="nav-link">Simulador</a>
         <a href="#" class="nav-link">Productos</a>
         <a href="#" class="nav-link">Contacto</a>
       </nav>
@@ -44,32 +44,30 @@
     </div>
   </section>
 
-  <!-- Contenido principal -->
+  <!-- Contenedor principal -->
   <main class="contenedor-principal">
-    
-    <!-- Sección 1: Datos Financieros -->
+
+    <!-- Card: Datos Financieros -->
     <section class="card-bancario">
       <div class="card-header">
         <div class="card-icono">💼</div>
         <h3>Datos Financieros del Cliente</h3>
       </div>
-      
       <div class="card-body">
         <div class="grid-dos">
           <div class="input-group">
             <label for="txtIngresos">
               <span class="icono-label">💰</span> Ingresos mensuales ($)
             </label>
-            <input type="number" id="txtIngresos" placeholder="Ej: 1500.00" min="0" step="0.01">
-             <span class="mensaje-error-input" id="errIngresos"></span> <!-- ✅ AGREGAR -->
+            <input type="number" id="txtIngresos" placeholder="Ej: 1500.00" step="0.01" min="0">
+            <span class="mensaje-error-input"></span>
           </div>
-
           <div class="input-group">
             <label for="txtEgresos">
-              <span class="icono-label"></span> Egresos mensuales ($)
+              <span class="icono-label">💸</span> Egresos mensuales ($)
             </label>
-            <input type="number" id="txtEgresos" placeholder="Ej: 500.00" min="0" step="0.01">
-            <span class="mensaje-error-input" id="errEgresos"></span> <!-- ✅ AGREGAR -->
+            <input type="number" id="txtEgresos" placeholder="Ej: 800.00" step="0.01" min="0">
+            <span class="mensaje-error-input"></span>
           </div>
         </div>
 
@@ -86,74 +84,69 @@
       </div>
     </section>
 
-    <!-- Sección 2: Solicitud de Crédito -->
+    <!-- Card: Solicitud de Crédito -->
     <section class="card-bancario">
       <div class="card-header">
         <div class="card-icono">📋</div>
         <h3>Solicitud de Crédito</h3>
       </div>
-      
       <div class="card-body">
         <div class="grid-tres">
           <div class="input-group">
             <label for="txtMonto">
               <span class="icono-label">💵</span> Monto del crédito ($)
             </label>
-            <input type="number" id="txtMonto" placeholder="Ej: 5000" min="0" step="0.01">
-            <span class="mensaje-error-input" id="errMonto"></span> <!-- ✅ AGREGAR -->
+            <input type="number" id="txtMonto" placeholder="Ej: 5000" step="0.01" min="0">
+            <span class="mensaje-error-input"></span>
           </div>
-
           <div class="input-group">
             <label for="txtPlazo">
               <span class="icono-label">📅</span> Plazo (años)
             </label>
-            <input type="number" id="txtPlazo" placeholder="Ej: 2" min="1" max="30">
-             <span class="mensaje-error-input" id="errPlazo"></span> <!-- ✅ AGREGAR -->
+            <input type="number" id="txtPlazo" placeholder="Ej: 3" min="1" max="30">
+            <span class="mensaje-error-input"></span>
           </div>
-
           <div class="input-group">
             <label for="txtTasaInteres">
               <span class="icono-label"></span> Tasa de interés (%)
             </label>
-            <input type="number" id="txtTasaInteres" placeholder="Ej: 12" min="0" step="0.1">
-            <span class="mensaje-error-input" id="errTasa"></span> <!-- ✅ AGREGAR -->
+            <input type="number" id="txtTasaInteres" placeholder="Ej: 12" step="0.1" min="0" max="100">
+            <span class="mensaje-error-input"></span>
           </div>
         </div>
 
-        <!-- Resultados del cálculo -->
         <div class="resultados-credito">
-          <h4 class="titulo-resultados"> Resultados de la Simulación</h4>
-          
+          <h4 class="titulo-resultados">📊 Resultados de la Simulación</h4>
           <div class="grid-resultados">
             <div class="resultado-box">
               <small>Interés a pagar</small>
               <strong id="spnInteresPagar">$0.00</strong>
             </div>
-
             <div class="resultado-box">
               <small>Total del préstamo</small>
               <strong id="spnTotalPrestamo">$0.00</strong>
             </div>
-
             <div class="resultado-box principal">
               <small>Cuota mensual</small>
               <strong id="spnCuotaMensual">$0.00</strong>
             </div>
           </div>
 
-          <!-- Estado del crédito -->
           <div class="estado-credito">
-            <div class="estado-label">Estado de la solicitud:</div>
-            <div class="estado-valor" id="spnEstadoCredito">ANALIZANDO...</div>
+            <span class="estado-label">Estado de la solicitud:</span>
+            <span class="estado-valor" id="spnEstadoCredito">ANALIZANDO...</span>
           </div>
+
+          <button id="btnAsignarCredito" disabled onclick="asignarCredito()">
+            <span class="icono-btn">✅</span> Asignar Crédito
+          </button>
         </div>
 
-        <!-- Botones de acción -->
         <div class="botones-accion">
-          <button onclick="calcular()" class="btn-primario">
+          <button class="btn-primario" onclick="calcular()">
             <span class="icono-btn">🧮</span> Calcular Crédito
           </button>
-          <button onclick="reiniciar()" class="btn-secundario">
+          <button class="btn-secundario" onclick="reiniciar()">
             <span class="icono-btn">🔄</span> Reiniciar
           </button>
         </div>
@@ -162,7 +155,7 @@
 
   </main>
 
-  <!-- Footer institucional -->
+  <!-- Footer -->
   <footer class="footer-banco">
     <div class="contenedor-footer">
       <div class="footer-info">
@@ -183,11 +176,9 @@
     </div>
   </footer>
 
-  <script src="simulador.js"></script>
-  <script src="funciones.js"></script>
   <script src="utilitarios.js"></script>
+  <script src="funciones.js"></script>
+  <script src="simulador.js"></script>
 
-  <!-- Contenedor de mensajes de error (agregar antes de </body>) -->
-<div id="contenedorErrores" class="contenedor-errores"></div>
 </body>
 </html>

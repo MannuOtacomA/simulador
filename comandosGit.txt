@@ -7,18 +7,20 @@ git commit -m "mi primera subida"
 
 luego en la cuenta git creamos un repositorio 
 copiamos la url del repositorio creado
-En consola de git, cambiamos la rama master a main
 
+En consola de git, cambiamos la rama master a main
 git branch -m main
 
 Ahora si envoiamos al repositorio remoto creado
 git remote add origin ....poner url....
 
-git push - u origin main (para subir los archivos al remoto desde rama main)
+git push -u origin main (para subir los archivos al remoto desde rama main)
 
 vamos a git y actualizamos pagina
 
-
+//=====
+crear rama dev
+git checkout -b dev
 
 ////
 Comandos sugeridos:
